@@ -25,7 +25,7 @@ async function main() {
 
     await USDT.approve(UNISWAPRouter, ethers.utils.parseUnits("2000", "18"), );
       
-  const SwapTokensForExactTokens = await ROUTER.swapTokensForExactTokens(
+  const swapExactTokensForTokens = await ROUTER.swapExactTokensForTokens(
     2000,
     2000,
     [USDTAddress,
@@ -34,7 +34,7 @@ async function main() {
     Math.floor(Date.now() /1000) *(60 * 10), 
   );
 
-  console.log("SwapTokensForExactTokens: ", SwapTokensForExactTokens);
+  console.log("swapExactTokensForTokens: ", swapExactTokensForTokens);
   
 }
 
