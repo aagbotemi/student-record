@@ -18,7 +18,6 @@ const main = async () => {
 
     const USDC = await ethers.getContractAt("IERC20", USDCAddress, impersonatedSigner);
     const DAI = await ethers.getContractAt("IERC20", DAIAddress);
-    // const WETH = await ethers.getContract("IERC20", wethAdress);
 
     const ROUTER = await ethers.getContractAt("IUniswap", UNIRouter, impersonatedSigner);
 
@@ -26,34 +25,22 @@ const main = async () => {
 
     const ethBal = await impersonatedSigner.getBalance();
     const usdcBal = await USDC.balanceOf(impersonatedSigner.address);
-    // const wethBal = await WETH.balanceOf(impersonatedSigner.address);
-    // const daiBal = await DAI.balanceOf(impersonatedSigner.address);
 
     const deadline = Math.floor(Date.now() / 1000) + (60 * 10);
 
-    console.log("usdc balance before swap", Number(usdcBal._hex));
-    // console.log("weth balance before swap", Number(wethBal._hex));
-    console.log("eth balance before swap", Number(ethBal._hex));
-
-    await ROUTER.swapTokensForExactETH(
+    const SwapExactTokensForETH = await ROUTER.swapExactTokensForETH(
         2000,
         1,
         [USDCAddress, wethAdress],
         impersonatedSigner.address,
         deadline
     );
-
-    const usdcBalAfter = await USDC.balanceOf(impersonatedSigner.address);
-    const ethBal2 = await impersonatedSigner.getBalance();
-    // const wethBal2 = await WETH.balanceOf(impersonatedSigner.address);
-    // const daiBalAfter = await DAI.balanceOf(impersonatedSigner.address);
-
-    console.log("usdc balance after swap", Number(usdcBalAfter._hex));
-    // console.log("weth balance before swap", Number(wethBal2._hex));
-    console.log("eth balance after swap", Number(ethBal2._hex));
+    
+    console.log("SwapExactTokensForETH", SwapExactTokensForETH);
 }
 
 main().catch((error) => {
     console.error(error);
     process.exitCode = 1;
 });
+
