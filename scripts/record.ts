@@ -3,16 +3,19 @@ require("dotenv").config({ path: ".env" });
 import { ethers } from "hardhat";
 
 async function main() {
-    const [owner, user1, user2] = await ethers.getSigners();
+    // const [owner, user1, user2] = await ethers.getSigners();
     const RecordFactory = await ethers.getContractFactory("Record");
     const recordFactory = await RecordFactory.deploy();
     await recordFactory.deployed();
 
     console.log("Record is deployed to this contract: ", recordFactory.address);
 
+    const user1 = "0x7A3E0DFf9B53fA0d3d1997903A48677399b22ce7";
+    const user2 = "0x8D5b0F873c00F8e8EA7FEF0C24DBdC5Ac2758D26"
+
     // interacte with create student record
     const createRecordTxn = await recordFactory.createStudentRecord(
-        user1.address,
+        user1,
         "Adekunle Jinadu",
         1,
         80
@@ -23,13 +26,13 @@ async function main() {
 
     // get student record
     const getRecordTxn = await recordFactory.getStudentRecord(
-        user1.address
+        user1
     )
     console.log("Get Student Record Txn Reciept: ", getRecordTxn);
 
     // update student record
     const updateRecordTxn = await recordFactory.updateStudentRecord(
-        user1.address,
+        user1,
         50
     )
     const updateRecordTxnReciept = await updateRecordTxn.wait();
@@ -37,7 +40,7 @@ async function main() {
 
     // interacte with another create student record
     const createRecordTxn2 = await recordFactory.createStudentRecord(
-        user2.address,
+        user2,
         "Emmanuel Mesole",
         1,
         75
@@ -45,9 +48,10 @@ async function main() {
     const createRecordTxnReciept2 = await createRecordTxn2.wait();
     console.log("Create Student Record Txn Reciept: ", createRecordTxnReciept2);
 
+    // get all record transaction
     const getAllRecordTxn = await recordFactory.getStudentRecordArray(
-        [user1.address,
-        user1.address]
+        [user1,
+        user2]
     )
     console.log("Get All Student Record Txn Reciept: ", getAllRecordTxn);
 }
