@@ -2,6 +2,12 @@ const helpers = require("@nomicfoundation/hardhat-network-helpers");
 require("dotenv").config({ path: ".env" });
 import { ethers } from "hardhat";
 
+// Contract creation Txn Hash: 0xd2b593da3995a1a34a313b3bc53d40a76da8d6a4e1b0e47f622cf0013c143a5e
+// Create Student Record Txn Hash: 0xd306ae324415cd6e122b8afbb3ee3fd14b7d77efd5a3c70175f7eccaa1a12de9
+// Update Student Record Txn HAsh: 0xab5d15e3ca91195d62aaea9f3f8321722696437b5252d2359ff59a44b356d91b
+// Create Another Student Record Txn Hash: 0xbee3fb349c060128e55bd3b89f56be6c270b8baa3d5d656aaceca5cf247daa7c
+
+
 async function main() {
     // const [owner, user1, user2] = await ethers.getSigners();
     const RecordFactory = await ethers.getContractFactory("Record");
@@ -53,7 +59,7 @@ async function main() {
         [user1,
         user2]
     )
-    console.log("Get All Student Record Txn Reciept: ", getAllRecordTxn);
+    console.log("Get All Student Record Txn Reciept: ", getAllRecordTxn);    
 }
 
 // We recommend this pattern to be able to use async/await everywhere
